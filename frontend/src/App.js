@@ -58,6 +58,9 @@ function App() {
                 </Link>
                 <ul className="dropdown-content">
                   <li>
+                    <Link to="/profile" >
+                      Profile
+                    </Link>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
                     </Link>
@@ -66,6 +69,7 @@ function App() {
               </div>
             ) : (
               <Link to="/signin" >Sign In</Link>
+
             )}
           </div>
           
@@ -122,7 +126,6 @@ function App() {
               <Route path="/weeksList" element={< WeeksListScreen />}></Route>
               <Route path="/usersList" element={< UserListScreen />}></Route>
               <Route path="/usersList/pageNumber/:pageNumber" element={< UserListScreen /> } exact ></Route>
-
               <Route path="/user/register" element={<RegisterScreen/>}></Route>
               <Route path="/signin" element={ < SigninScreen /> } ></Route>
               <Route path="/" element={< HomeScreen />} exact></Route>
