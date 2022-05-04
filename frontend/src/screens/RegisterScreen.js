@@ -12,6 +12,10 @@ export default function RegisterScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isSuperAdmin,setIsSuperAdmin]=useState();
+  const [isAdmin,setIsAdmin]=useState();
+  const [isDispatcher,setIsDispatcher]=useState();
+
   const navigate=useNavigate();
   const userRegister = useSelector((state) => state.userRegister);
   const { userInfo, loading, error } = userRegister;
@@ -22,7 +26,7 @@ export default function RegisterScreen(props) {
     if (password !== confirmPassword) {
       alert('Password and confirm password are not match');
     } else {
-      dispatch(register(firstName,lastName, email, password));
+      dispatch(register(firstName,lastName, email, password,isSuperAdmin,isAdmin,isDispatcher));
     }
   };
   useEffect(() => {
@@ -30,6 +34,7 @@ export default function RegisterScreen(props) {
       navigate('/')
     }
   });
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
@@ -88,6 +93,30 @@ export default function RegisterScreen(props) {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></input>
         </div>
+
+         <div>
+          <label htmlFor="post">Role </label>
+          <br/>
+          <input
+            type="checkbox"
+            name="role"
+            onChange={(e) => setIsSuperAdmin(e.target.checked)}
+
+          /> super Admin
+           <input
+            type="checkbox"
+            name="role"
+            onChange={(e) => setIsAdmin(e.target.checked)}
+
+          /> admin
+           <input
+            type="checkbox"
+            name="role"
+            onChange={(e) => setIsDispatcher(e.target.checked)}
+
+          /> Dispatcher
+        </div>
+        {console.log(isDispatcher,isAdmin,isSuperAdmin)}
         <div>
           <label />
           <button className="primary" type="submit">

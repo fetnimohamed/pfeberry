@@ -41,8 +41,12 @@ userRouter.post(
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
+      isSuperAdmin:req.body.isSuperAdmin,
+      isAdmin:req.body.isAdmin,
+      isDispatcher:req.body.isSuperAdmin,
       password: bcrypt.hashSync(req.body.password, 8),
     });
+    
     const createdUser = await user.save();
     res.send({
       _id: createdUser._id,
@@ -50,7 +54,9 @@ userRouter.post(
       LastName: createdUser.LastName,
       email: createdUser.email,
       password:createdUser.password,
-      
+      isSuperAdmin:createdUser.isSuperAdmin,
+      isAdmin:createdUser.isAdmin,
+      isDispatcher:createdUser.isSuperAdmin,
       token: generateToken(createdUser),
     });
   })

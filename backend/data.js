@@ -21,16 +21,30 @@ const data = {
     {
       firstName: 'marwa',
       lastName:'guerfel',
-      email: 'admin@example.com',
+      email: 'superadmin@example.com',
       password: bcrypt.hashSync('1234', 8),
-      
+      isSuperAdmin:true,
+      isAdmin:false,
+      isDispatcher:false,
+
     },
     {
       firstName: 'eya',
       lastName:'fetni',
+      email: 'admin@example.com',
+      password: bcrypt.hashSync('1234', 8),
+      isSuperAdmin:false,
+      isAdmin:true,
+      isDispatcher:false,
+    },
+       {
+      firstName: 'eya',
+      lastName:'fetni',
       email: 'user@example.com',
       password: bcrypt.hashSync('1234', 8),
-      
+      isSuperAdmin:false,
+      isAdmin:false,
+      isDispatcher:true,
     },
   ],
     taskTheme: [

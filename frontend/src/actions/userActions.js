@@ -40,7 +40,7 @@ export const signin = (email, password) => async (dispatch) => {
   }
 };
 
-export const register = (firstName,lastName, email, password) => async (dispatch) => {
+export const register = (firstName,lastName, email, password,isSuperAdmin,isAdmin,isDispatcher) => async (dispatch) => {
   dispatch({ type: USER_REGISTER_REQUEST, payload: { email, password } });
   try {
     const { data } = await Axios.post('/api/users/register', {
@@ -48,6 +48,9 @@ export const register = (firstName,lastName, email, password) => async (dispatch
       lastName,
       email,
       password,
+      isSuperAdmin,
+      isAdmin,
+      isDispatcher
     });
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });

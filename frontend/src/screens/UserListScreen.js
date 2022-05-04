@@ -45,7 +45,15 @@ export default function UserListScreen(props) {
     const filterPage = filter.page || pageNumber;
        return `/usersList/pageNumber/${filterPage}`;
   };
-  
+
+
+  const role =(user)=>{
+     if (user.isSuperAdmin===true) {    
+        return"super admin"}
+        else if (user.isAdmin===true){
+        return "admin"} 
+        else {
+        return "Dispatcher"}}      
   return (
     <div>
       <div>
@@ -84,12 +92,13 @@ export default function UserListScreen(props) {
               <th>FIRST NAME</th>
               <th>LAST NAME</th>
               <th>EMAIL</th>
+              <th>ROLE</th>
               <th>ACTIONS</th>
             </tr>
           </thead>
           
           <tbody>
-            {users.users.length>-1 && 
+            {
             // eslint-disable-next-line array-callback-return
             users.users.filter((user) => {
             if (search === "") {
@@ -98,12 +107,14 @@ export default function UserListScreen(props) {
               user.firstName.toLowerCase().includes(search.toLowerCase())
             ) {
               return user;
-            }
+            };
+            
           }).map((user) => (
               <tr key={user._id}>
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
-                <td>{user.email}</td>
+                <td>{user.email}</td>        
+                <td>{role(user)}</td>
                 <td>
                  <button
                     type="button"

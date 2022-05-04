@@ -6,9 +6,9 @@ const userSchema = new mongoose.Schema(
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    isSuperAdmin:{type:Boolean, required: true },
-    isAdmin:{type:Boolean, required: true },
-    isDispatcher:{type:Boolean, required: true }
+    isSuperAdmin:{type:Boolean, required: true, default:false},
+    isAdmin:{type:Boolean, required: true ,default:false },
+    isDispatcher:{type:Boolean, required: true,default:false },
 
   },
 
