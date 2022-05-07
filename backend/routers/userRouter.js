@@ -3,7 +3,7 @@ import expressAsyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
 import data from '../data.js';
 import User from '../models/userModel.js';
-import { generateToken,isAuth} from '../utils.js';
+import { generateToken,isAuth,isAdmin,isSupAdmin,isDispatcher} from '../utils.js';
 
 const userRouter = express.Router();
 
@@ -35,7 +35,7 @@ userRouter.post(
 
 userRouter.post(
   "/register",
-  //isAuth,
+    isAuth, isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = new User({
       firstName: req.body.firstName,
@@ -110,6 +110,7 @@ userRouter.delete(
     }
   })
 );
+
 userRouter.put(
   '/:id',
  // isAuth,
@@ -120,8 +121,9 @@ userRouter.put(
       user.firstName = req.body.firstName || user.firstName;
       user.lastName = req.body.lastName || user.lastName;
       user.email = req.body.email || user.email;
-      user.password = req.body.password || user.password;
       user.isSuperAdmin=req.body.isSuperAdmin||user.isSuperAdmin;
+      user.isAdmin=req.body.isAdmin||user.isAdmin;
+      user.isDispatcher=req.body.isDispatcher||user.isDispatcher;
       const updatedUser = await user.save();
       res.send({ message: 'User Updated', user: updatedUser });
     } else {
@@ -130,5 +132,29 @@ userRouter.put(
   })
 );
 
+userRouter.put(
+  '/profile',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (user) {
+      user.firstName = req.body.firstName || user.firstName;
+      user.lastName = req.body.lastName || user.lastName;
+      user.email = req.body.email || user.email;
+      
+      if (req.body.password) {
+        user.password = bcrypt.hashSync(req.body.password, 8);
+      }
+      const updatedUser = await user.save();
+      res.send({
+        _id: updatedUser._id,
+        firstName: updatedUser.firstName,
+        lastName: updatedUser.lastName,
+        email: updatedUser.email,
+        token: generateToken(updatedUser),
+      });
+    }
+  })
+);
 
 export default userRouter;

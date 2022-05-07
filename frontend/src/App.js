@@ -21,8 +21,9 @@ import TaskModelListScreen from './screens/TaskModelListScreen';
 import TaskModelCreateScreen from './screens/TaskModelCreateScreen';
 import TaskModelEditScreen from './screens/TaskModelEditScreen';
 import './App.css';
-
-
+import './/'
+import ProfileScreen from './screens/ProfileScreen';
+import EditUserScreen from './screens/EditUserScreen';
 function App() {
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
@@ -32,10 +33,12 @@ function App() {
   const signoutHandler = () => {
     dispatch(signout());
   };
-  return (
+ 
+   return (
     <BrowserRouter>
     
       <div className="grid-container">
+        
         <header className="row">
           <button
               type="button"
@@ -61,6 +64,9 @@ function App() {
                     <Link to="/profile" >
                       Profile
                     </Link>
+                  </li>
+                  <hr></hr>
+                  <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
                     </Link>
@@ -108,10 +114,12 @@ function App() {
            </ul>
         </aside>
       
+     
           
         <main>
+             
           <Routes>
-                      
+             <Route path="/profile" element={<ProfileScreen/>}></Route>                                
               <Route path="/taskModel/:id/edit" element={<TaskModelEditScreen/>}></Route>                       
               <Route path="/taskModel/CreateTaskModel" element={<TaskModelCreateScreen />}></Route> 
               <Route path="/taskModelsList" element={< TaskModelListScreen />}></Route>              
@@ -129,10 +137,11 @@ function App() {
               <Route path="/user/register" element={<RegisterScreen/>}></Route>
               <Route path="/signin" element={ < SigninScreen /> } ></Route>
               <Route path="/" element={< HomeScreen />} exact></Route>
-              <Route path="/user/:id/edit" element={<UserEditScreen/>}></Route>
+              <Route path="/user/:id/edit" element={<EditUserScreen/>}></Route>
           </Routes>
         </main>
         <footer className="row center">All right reserved</footer>
+     
       </div>
     </BrowserRouter>
   );

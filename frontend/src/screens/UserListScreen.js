@@ -56,14 +56,14 @@ export default function UserListScreen(props) {
         return "Dispatcher"}}      
   return (
     <div>
-      <div>
+      <div align="right">
       <button 
        type="button"
       className="big"
       onClick={() => navigate(`/user/register`)}> add User</button>
       </div>
-
-       <div className="row">
+      <br></br>
+       <div className="row" >
         <input
           type="search"
           placeholder='search...'
