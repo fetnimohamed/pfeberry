@@ -1,6 +1,14 @@
 import bcrypt from 'bcryptjs';
 
 const data = {
+  systems:[
+    {
+       name: 'sys1',
+       description: 'froce1',
+       deleted:false,
+
+    }
+  ],
   taskStates:[
     {
        name: 'b',

@@ -70,7 +70,7 @@ export default function UserListScreen(props) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></input>
-             </div>
+        </div>
        
 
       <h1>Users</h1>

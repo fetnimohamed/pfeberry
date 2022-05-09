@@ -1,64 +1,69 @@
 import React, { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteSystem,listSystems } from '../actions/systemActions';
+import { deleteCompState, listCompState } from '../actions/comStateActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { SYSTEM_DETAILS_RESET } from '../constants/systemConstants';
+import { COMPSTATE_DETAILS_RESET } from '../constants/compStateConstants';
 
 
 
-export default function SystemListScreen(props) {
-  const [search,setSearch]=useState('');
-  const systemList = useSelector((state) => state.systemList);
-  const { loading, error, systems } = systemList;
+
+export default function ComponentStateListScreen(props) {
+  const compStateList = useSelector((state) => state.compStateList);
+  const { loading, error, compStates } = compStateList;
   const dispatch = useDispatch();
   const navigate=useNavigate();
-  const systemDelete = useSelector((state) => state.systemDelete);
+  const compStateDelete = useSelector((state) => state.compStateDelete);
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
-  } = systemDelete;
+  } = compStateDelete;
+    const [search,setSearch]=useState('');
 
 
    
   useEffect(() => {
-    
-    dispatch(listSystems());
+       dispatch(listCompState());
+
     dispatch({
-      type: SYSTEM_DETAILS_RESET,
+      type: COMPSTATE_DETAILS_RESET,
     });
     
    }, [dispatch, successDelete]);
 
-
-   const deleteHandler = (system) => {
+   const deleteHandler = (compState) => {
     if (window.confirm('Are you sure?')) {
-      dispatch(deleteSystem(system._id));
+      dispatch(deleteCompState(compState._id));
     }
   };
   return (
     <div>
+      <div align="right">
       <button 
        type="button"
       className="big"
-      onClick={() => navigate(`/system/CreateSystem`)}> create system</button>
-
-        <div className="row" >
-        <input
+      onClick={() => navigate(`/compState/CreateCompState`)}> create task State</button>
+      </div>
+      <br></br>
+      <div>
+      <input
           type="search"
           placeholder='search...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></input>
-        </div>
+      </div>
 
-      <h1>Systems</h1>
+
+
+      <h1>task State</h1>
+
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {successDelete && (
-      <MessageBox variant="success">System Deleted Successfully</MessageBox>
+      <MessageBox variant="success">copmponetstate Deleted Successfully</MessageBox>
       )}
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -76,32 +81,33 @@ export default function SystemListScreen(props) {
           </thead>
           
           <tbody>
-           
-            { systems.system.filter((system) => {
+            {console.log(compStates)}
+            {compStates.componentState.length >0 &&
+             compStates.componentState.filter((compState) => {
             if (search === "") {
-              return system;
+              return compState;
             } else if (
-              system.name.toLowerCase().includes(search.toLowerCase())
+              compState.name.toLowerCase().includes(search.toLowerCase())
             ) {
-              return system;
+              return compState;
             };
             
-          }).map((system) => (
-              <tr key={system._id}>
-                <td>{system.name}</td>
-                <td>{system.description}</td>
+          }).map((compState) => (
+              <tr key={compState._id}>
+                <td>{compState.name}</td>
+                <td>{compState.description}</td>
                 <td>
                  <button
                     type="button"
                     className="small"
-                    onClick={() => navigate(`/system/${system._id}/edit`)}
+                    onClick={() => navigate(`/compState/${compState._id}/edit`)}
                   >
                     Edit
                     </button>
                   <button
                     type="button"
                     className="small"
-                    onClick={() => deleteHandler(system)}
+                    onClick={() => deleteHandler(compState)}
                   >
                     Delete
                   </button>

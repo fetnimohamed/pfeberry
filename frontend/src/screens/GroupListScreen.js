@@ -1,50 +1,50 @@
 import React, { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteSystem,listSystems } from '../actions/systemActions';
+import { deleteGroup ,listGroups } from '../actions/groupActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { SYSTEM_DETAILS_RESET } from '../constants/systemConstants';
+import { GROUP_DETAILS_RESET } from '../constants/groupConstants';
 
 
-
-export default function SystemListScreen(props) {
+export default function GroupListScreen(props) {
   const [search,setSearch]=useState('');
-  const systemList = useSelector((state) => state.systemList);
-  const { loading, error, systems } = systemList;
+  const groupList = useSelector((state) => state.groupList);
+  const { loading, error, groups } = groupList;
   const dispatch = useDispatch();
   const navigate=useNavigate();
-  const systemDelete = useSelector((state) => state.systemDelete);
+  const groupDelete = useSelector((state) => state.groupDelete);
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
-  } = systemDelete;
+  } = groupDelete;
 
 
    
   useEffect(() => {
     
-    dispatch(listSystems());
+    dispatch(listGroups());
     dispatch({
-      type: SYSTEM_DETAILS_RESET,
+      type: GROUP_DETAILS_RESET,
     });
     
    }, [dispatch, successDelete]);
 
 
-   const deleteHandler = (system) => {
+   const deleteHandler = (group) => {
     if (window.confirm('Are you sure?')) {
-      dispatch(deleteSystem(system._id));
+      dispatch(deleteGroup(group._id));
     }
   };
   return (
     <div>
+      <div align="right">
       <button 
        type="button"
       className="big"
-      onClick={() => navigate(`/system/CreateSystem`)}> create system</button>
-
+      onClick={() => navigate(`/group/CreateGroup`)}> create group</button> 
+      </div>
         <div className="row" >
         <input
           type="search"
@@ -54,11 +54,11 @@ export default function SystemListScreen(props) {
         ></input>
         </div>
 
-      <h1>Systems</h1>
+      <h1>Groups</h1>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {successDelete && (
-      <MessageBox variant="success">System Deleted Successfully</MessageBox>
+      <MessageBox variant="success">Group Deleted Successfully</MessageBox>
       )}
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -77,31 +77,31 @@ export default function SystemListScreen(props) {
           
           <tbody>
            
-            { systems.system.filter((system) => {
+            { groups.group.filter((group) => {
             if (search === "") {
-              return system;
+              return group;
             } else if (
-              system.name.toLowerCase().includes(search.toLowerCase())
+              group.name.toLowerCase().includes(search.toLowerCase())
             ) {
-              return system;
+              return group;
             };
             
-          }).map((system) => (
-              <tr key={system._id}>
-                <td>{system.name}</td>
-                <td>{system.description}</td>
+          }).map((group) => (
+              <tr key={group._id}>
+                <td>{group.name}</td>
+                <td>{group.description}</td>
                 <td>
                  <button
                     type="button"
                     className="small"
-                    onClick={() => navigate(`/system/${system._id}/edit`)}
+                    onClick={() => navigate(`/group/${group._id}/edit`)}
                   >
                     Edit
                     </button>
                   <button
                     type="button"
                     className="small"
-                    onClick={() => deleteHandler(system)}
+                    onClick={() => deleteHandler(group)}
                   >
                     Delete
                   </button>

@@ -1,19 +1,20 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import System from '../models/systemModel.js';
-import { generateToken,isAuth} from '../utils.js';
+import {isAuth} from '../utils.js';
+import data from '../data.js';
 
 const systemRouter = express.Router();
 
 systemRouter.get('/seed',async (req, res) => {
-    const createdSystem = await System.insertMany(data.users);
+    const createdSystem = await System.insertMany(data.systems);
     res.send({createdSystem})
   }
 );
 
 
 systemRouter.post(
-  "/add",
+  "/create",
   //isAuth,
   expressAsyncHandler(async (req, res) => {
     const system = new System({
@@ -21,7 +22,7 @@ systemRouter.post(
       description: req.body.description,
       deleted:req.body.deleted,
     });
-    const createdSystem = await user.save();
+    const createdSystem = await system.save();
     res.send({
       _id: createdSystem._id,
       name: createdSystem.name,

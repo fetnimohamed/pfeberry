@@ -1,41 +1,44 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteSystem,listSystems } from '../actions/systemActions';
+import { deleteComponent,listComoponents } from '../actions/componentActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { SYSTEM_DETAILS_RESET } from '../constants/systemConstants';
+import { COMPONENT_DETAILS_RESET } from '../constants/componentConstants';
 
 
 
-export default function SystemListScreen(props) {
-  const [search,setSearch]=useState('');
-  const systemList = useSelector((state) => state.systemList);
-  const { loading, error, systems } = systemList;
+
+export default function ComponentListScreen(props) {
+  const componentList = useSelector((state) => state.componentList);
+  const { loading, error, components } = componentList;
   const dispatch = useDispatch();
   const navigate=useNavigate();
-  const systemDelete = useSelector((state) => state.systemDelete);
+  const componentDelete = useSelector((state) => state.componentDelete);
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
-  } = systemDelete;
+  } = componentDelete;
 
 
    
   useEffect(() => {
-    
-    dispatch(listSystems());
+       dispatch(listComponents());
+
     dispatch({
-      type: SYSTEM_DETAILS_RESET,
+      type: COMPONENT_DETAILS_RESET,
     });
     
    }, [dispatch, successDelete]);
 
+   useEffect(()=>{
+     console.log(components);
+   })
 
-   const deleteHandler = (system) => {
+   const deleteHandler = (component) => {
     if (window.confirm('Are you sure?')) {
-      dispatch(deleteSystem(system._id));
+      dispatch(deleteComponent(component._id));
     }
   };
   return (
@@ -43,22 +46,12 @@ export default function SystemListScreen(props) {
       <button 
        type="button"
       className="big"
-      onClick={() => navigate(`/system/CreateSystem`)}> create system</button>
-
-        <div className="row" >
-        <input
-          type="search"
-          placeholder='search...'
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        ></input>
-        </div>
-
-      <h1>Systems</h1>
+      onClick={() => navigate(`/component/CreateComponent`)}> create task State</button>
+      <h1>task State</h1>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {successDelete && (
-      <MessageBox variant="success">System Deleted Successfully</MessageBox>
+      <MessageBox variant="success">component Deleted Successfully</MessageBox>
       )}
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -76,32 +69,24 @@ export default function SystemListScreen(props) {
           </thead>
           
           <tbody>
-           
-            { systems.system.filter((system) => {
-            if (search === "") {
-              return system;
-            } else if (
-              system.name.toLowerCase().includes(search.toLowerCase())
-            ) {
-              return system;
-            };
             
-          }).map((system) => (
-              <tr key={system._id}>
-                <td>{system.name}</td>
-                <td>{system.description}</td>
+            {components.components.length >0 &&
+             components.components.map((component) => (
+              <tr key={component._id}>
+                <td>{component.name}</td>
+                <td>{component.description}</td>
                 <td>
                  <button
                     type="button"
                     className="small"
-                    onClick={() => navigate(`/system/${system._id}/edit`)}
+                    onClick={() => navigate(`/component/${component._id}/edit`)}
                   >
                     Edit
                     </button>
                   <button
                     type="button"
                     className="small"
-                    onClick={() => deleteHandler(system)}
+                    onClick={() => deleteHandler(component)}
                   >
                     Delete
                   </button>

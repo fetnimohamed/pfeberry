@@ -2,18 +2,19 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import ComponentState from '../models/compStateModel.js';
 import { generateToken,isAuth} from '../utils.js';
+import data from '../data.js';
 
 const componentStateRouter = express.Router();
 
 componentStateRouter.get('/seed',async (req, res) => {
-    const createdComponentState = await ComponentState.insertMany(data.users);
+    const createdComponentState = await ComponentState.insertMany(data.componentState);
     res.send({createdComponentState})
   }
 );
 
 
 componentStateRouter.post(
-  "/add",
+  "/create",
   //isAuth,
   expressAsyncHandler(async (req, res) => {
     const componentState = new ComponentState({
@@ -21,7 +22,7 @@ componentStateRouter.post(
       description: req.body.description,
       deleted:req.body.deleted,
     });
-    const createdComponentState = await user.save();
+    const createdComponentState = await componentState.save();
     res.send({
       _id: createdComponentState._id,
       name: createdComponentState.name,

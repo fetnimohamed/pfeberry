@@ -6,7 +6,7 @@ import MessageBox from '../components/MessageBox';
 import {useNavigate } from 'react-router-dom';
 
 
-export default function CreateTaskStateCreateScreen(props) {
+export default function TaskStateCreateScreen(props) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const navigate=useNavigate();

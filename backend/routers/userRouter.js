@@ -35,16 +35,16 @@ userRouter.post(
 
 userRouter.post(
   "/register",
-    isAuth, isAdmin,
+    //isAuth, isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
+      password: bcrypt.hashSync(req.body.password, 8),
       isSuperAdmin:req.body.isSuperAdmin,
       isAdmin:req.body.isAdmin,
-      isDispatcher:req.body.isSuperAdmin,
-      password: bcrypt.hashSync(req.body.password, 8),
+      isDispatcher:req.body.isDispatcher,
     });
     
     const createdUser = await user.save();
@@ -56,7 +56,7 @@ userRouter.post(
       password:createdUser.password,
       isSuperAdmin:createdUser.isSuperAdmin,
       isAdmin:createdUser.isAdmin,
-      isDispatcher:createdUser.isSuperAdmin,
+      isDispatcher:createdUser.isDispatcher,
       token: generateToken(createdUser),
     });
   })

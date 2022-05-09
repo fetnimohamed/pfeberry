@@ -42,6 +42,29 @@ import {
          taskModelDetailsReducer
 } from './reducers/taskModelReducers'
 
+import {
+         systemListReducer,
+         systemDeleteReducer,
+         systemUpdateReducer,
+         systemCreateReducer,
+         systemDetailsReducer
+} from './reducers/systemReducers';
+
+import {
+         groupListReducer,
+         groupDeleteReducer,
+         groupUpdateReducer,
+         groupCreateReducer,
+         groupDetailsReducer
+} from './reducers/groupReducers'
+
+import {
+         compStateListReducer,
+         compStateDeleteReducer,
+         compStateUpdateReducer,
+         compStateCreateReducer,
+         compStateDetailsReducer
+} from './reducers/compStateReducers'
 
 const initialState = {
   userSignin: {
@@ -78,6 +101,21 @@ const reducer = combineReducers({
     taskModelUpdate:taskModelUpdateReducer,
     taskModelCreate :taskModelCreateReducer,
     taskModelDetails:taskModelDetailsReducer,
+    systemList:systemListReducer,
+    systemDelete:systemDeleteReducer,
+    systemUpdate:systemUpdateReducer,
+    systemCreate:systemCreateReducer,
+    systemDetails:systemDetailsReducer,
+    groupList:groupListReducer,
+    groupDelete:groupDeleteReducer,
+    groupUpdate:groupUpdateReducer,
+    groupCreate:groupCreateReducer,
+    groupDetails:groupDetailsReducer,
+    compStateList:compStateListReducer,
+    compStateDelete:compStateDeleteReducer,
+    compStateUpdate:compStateUpdateReducer,
+    compStateCreate:compStateCreateReducer,
+    compStateDetails:compStateDetailsReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

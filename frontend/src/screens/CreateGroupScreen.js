@@ -1,38 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createWeek} from '../actions/weekActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import {useNavigate } from 'react-router-dom';
+import { CreateGroup } from '../actions/groupActions';
 
 
-export default function WeekCreateScreen(props) {
+export default function CreateGroupScreen(props) {
   const [name, setName] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
   const [description, setDescription] = useState('');
   const navigate=useNavigate();
-  const  weekCreate= useSelector((state) => state.weekCreate);
-  const { week, loading, error } = weekCreate;
+  const  groupCreate= useSelector((state) => state.groupCreate);
+  const { group, loading, error } = groupCreate;
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    if (startDate >= endDate) {
-      alert('StartDate and EndDate error');
-    } else {
-      dispatch(createWeek(name,startDate, endDate, description));
-    }
+    dispatch(CreateGroup(name, description));
   };
+  
   useEffect(() => {
-    if (week) {
-      navigate('/weeksList')
+    if (group) {
+      navigate('/groupList');
     }
   });
+
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Create week</h1>
+          <h1>Create Group</h1>
         </div>
         {loading && <LoadingBox></LoadingBox>}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
@@ -46,28 +43,9 @@ export default function WeekCreateScreen(props) {
             onChange={(e) => setName(e.target.value)}
           ></input>
         </div>
+        
         <div>
-          <label htmlFor="name">start Date</label>
-          <input
-            type="Date"
-            id="startDate"
-            placeholder="Enter start Date"
-            required
-            onChange={(e) => setStartDate(e.target.value)}
-          ></input>
-        </div>
-        <div>
-            <label htmlFor="name">end Date</label>
-          <input
-            type="Date"
-            id="endDate"
-            placeholder="Enter end Date"
-            required
-            onChange={(e) => setEndDate(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="password">description</label>
+          <label htmlFor="description">description</label>
           <input
             type="Description"
             id="Description"
@@ -89,4 +67,4 @@ export default function WeekCreateScreen(props) {
       </form>
     </div>
   );
-}
+};

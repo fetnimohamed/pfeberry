@@ -31,7 +31,7 @@ export default function RegisterScreen(props) {
   };
   useEffect(() => {
     if (userInfo) {
-      navigate('/')
+      navigate('/uersList')
     }
   });
 

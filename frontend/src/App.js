@@ -7,7 +7,6 @@ import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import UserListScreen from './screens/UserListScreen';
-import UserEditScreen from './screens/UserEditScreen';
 import WeeksListScreen from './screens/WeeksListScreen';
 import WeekCreateScreen from './screens/WeekCreateScreen';
 import WeekEditScreen from './screens/WeekEditScreen';
@@ -21,9 +20,17 @@ import TaskModelListScreen from './screens/TaskModelListScreen';
 import TaskModelCreateScreen from './screens/TaskModelCreateScreen';
 import TaskModelEditScreen from './screens/TaskModelEditScreen';
 import './App.css';
-import './/'
+import CreateSystemScreen from './screens/CreateSystemScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditUserScreen from './screens/EditUserScreen';
+import SystemListScreen from './screens/SystemListScreen';
+import SystemEditScreen from './screens/SystemEditScreen';
+import GroupListScreen from './screens/GroupListScreen';
+import CreateGroupScreen from './screens/CreateGroupScreen';
+import GroupEditScreen from './screens/GroupEditScreen';
+import ComponentStateListScreen from './screens/CompStateListScreen';
+import CompStateCreateScreen from './screens/compStateCreateScreen';
+import CompStateEditScreen from './screens/CompStateEditScreen';
 function App() {
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
@@ -110,6 +117,15 @@ function App() {
               <li>
                 <Link  to="/taskModelsList"> Task Models</Link>
               </li>
+               <li>
+                <Link  to="/systemList"> Systems </Link>
+              </li>
+                <li>
+                <Link  to="/groupList"> Groups </Link>
+              </li>
+               <li>
+                <Link  to="/compStateList"> Components States </Link>
+              </li>
               </ul>
            </ul>
         </aside>
@@ -119,7 +135,16 @@ function App() {
         <main>
              
           <Routes>
-             <Route path="/profile" element={<ProfileScreen/>}></Route>                                
+              <Route path='/compState/:id/edit' element={<CompStateEditScreen/>}></Route>
+              <Route path='/compState/CreateCompState' element={<CompStateCreateScreen />}></Route>           
+              <Route path='/compStateList' element={<ComponentStateListScreen/>}></Route>
+              <Route path='/group/:id/edit' element={<GroupEditScreen/>}></Route>
+              <Route path='/group/CreateGroup' element={<CreateGroupScreen />}></Route>           
+              <Route path='/groupList' element={<GroupListScreen/>}></Route>
+              <Route path='/system/:id/edit' element={<SystemEditScreen/>}></Route>
+              <Route path="/system/CreateSystem" element={<CreateSystemScreen />}></Route>           
+              <Route path="/systemList" element={<SystemListScreen/>}></Route>
+              <Route path="/profile" element={<ProfileScreen/>}></Route>                                
               <Route path="/taskModel/:id/edit" element={<TaskModelEditScreen/>}></Route>                       
               <Route path="/taskModel/CreateTaskModel" element={<TaskModelCreateScreen />}></Route> 
               <Route path="/taskModelsList" element={< TaskModelListScreen />}></Route>              

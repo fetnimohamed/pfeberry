@@ -14,7 +14,6 @@ export default function CreateTaskThemeCreateScreen(props) {
   const { taskTheme, loading, error } = taskThemeCreate;
   const dispatch = useDispatch();
   const submitHandler = (e) => {
-
     e.preventDefault();
     dispatch(CreateTaskTheme(name, description));
   };

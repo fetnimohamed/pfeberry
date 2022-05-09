@@ -6,8 +6,9 @@ import weekRouter from './routers/weekRouter.js';
 import taskThemeRouter from './routers/taskThemeRouter.js';
 import taskStateRouter from './routers/taskStateRouter.js';
 import taskModelRouter from './routers/taskMoRouter.js';
-
-
+import systemRouter from './routers/systemRouter.js';
+import groupRouter from './routers/groupRouter.js' 
+import componentStateRouter from './routers/compStateRouter.js'
 dotenv.config();
 
 
@@ -23,6 +24,9 @@ mongoose.connect('mongodb://localhost/projet', /*{//mahabech ymchi b hethi lazem
   useUnifiedTopology: true,
   useCreateIndex: true,
 }*/);
+app.use('/api/compState',componentStateRouter);
+app.use('/api/groups',groupRouter);
+app.use('/api/systems',systemRouter)
 app.use('/api/taskModels',taskModelRouter);
 app.use('/api/taskStates',taskStateRouter);
 app.use('/api/taskThemes',taskThemeRouter);
