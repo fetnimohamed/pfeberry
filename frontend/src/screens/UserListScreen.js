@@ -14,6 +14,7 @@ import { USER_DETAILS_RESET } from '../constants/userConstants';
 export default function UserListScreen(props) {
   const [search,setSearch]=useState('');
   const { pageNumber = 1 } = useParams();
+
   const userList = useSelector((state) => state.userList);
   const { loading, error, users,  page, pages } = userList;
   const dispatch = useDispatch();
@@ -28,12 +29,12 @@ export default function UserListScreen(props) {
 
    
   useEffect(() => {
-    dispatch(listUsers({pageNumber}));
+    dispatch(listUsers({search,pageNumber}));
 
     dispatch({
       type: USER_DETAILS_RESET,
     });
-   }, [dispatch, successDelete,pageNumber,]);
+   }, [dispatch, successDelete,search,pageNumber,]);
 
   const deleteHandler = (user) => {
     if (window.confirm('Are you sure?')) {
@@ -45,6 +46,7 @@ export default function UserListScreen(props) {
     const filterPage = filter.page || pageNumber;
        return `/usersList/pageNumber/${filterPage}`;
   };
+    
 
 
   const role =(user)=>{
@@ -68,7 +70,9 @@ export default function UserListScreen(props) {
           type="search"
           placeholder='search...'
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+             onChange={(e) => {
+              setSearch(e.target.value.toLocaleLowerCase());
+            }}
         ></input>
         </div>
        
@@ -99,17 +103,7 @@ export default function UserListScreen(props) {
           
           <tbody>
             {
-            // eslint-disable-next-line array-callback-return
-            users.users.filter((user) => {
-            if (search === "") {
-              return user;
-            } else if (
-              user.firstName.toLowerCase().includes(search.toLowerCase())
-            ) {
-              return user;
-            };
-            
-          }).map((user) => (
+            users.users.map((user) => (
               <tr key={user._id}>
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
@@ -136,7 +130,7 @@ export default function UserListScreen(props) {
           </tbody>
         </table>
       )}
-        <div className="row center pagination">
+       <div className="row center pagination">
                 {[...Array(pages).keys()].map((x) => (
                   <Link
                     className={x + 1 === page ? 'active' : ''}
@@ -148,5 +142,5 @@ export default function UserListScreen(props) {
                 ))}
               </div>
     </div>
-  );
+  )
 }

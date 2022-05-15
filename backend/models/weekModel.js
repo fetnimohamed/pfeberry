@@ -6,6 +6,7 @@ const weekSchema = new mongoose.Schema(
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true},
     description: { type: String, required: true },
+    user: { type: mongoose.Schema.Types.ObjectID, ref: "user" },
     deleted: {
       type: mongoose.Schema.Types.Boolean,
       index: true,

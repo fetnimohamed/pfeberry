@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteWeek,listWeeks } from '../actions/weekActions';
@@ -10,6 +10,7 @@ import { WEEK_DETAILS_RESET } from '../constants/weekConstants';
 
 
 export default function WeeksListScreen(props) {
+  const [search,setSearch]=useState('');
   const weekList = useSelector((state) => state.weekList);
   const { loading, error, weeks } = weekList;
   const dispatch = useDispatch();
@@ -44,6 +45,15 @@ export default function WeeksListScreen(props) {
        type="button"
       className="big"
       onClick={() => navigate(`/week/CreateWeek`)}> create week</button>
+      
+         <div className="row" >
+        <input
+          type="search"
+          placeholder='search...'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        ></input>
+        </div>
       <h1>Weeks</h1>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
@@ -63,6 +73,7 @@ export default function WeeksListScreen(props) {
               <th>START DATE</th>
               <th>END DATE</th>
               <th>DESCRIPTION</th>
+              <th>USER AFFECTED</th>
               <th>ACTIONS</th>
             </tr>
           </thead>
@@ -75,7 +86,9 @@ export default function WeeksListScreen(props) {
                 <td>{week.name}</td>
                 <td>{week.startDate}</td>
                 <td>{week.endDate}</td>
+                <td>{week.user.firstName}</td>
                 <td>{week.description}</td>
+                
                 <td>
                  <button
                     type="button"

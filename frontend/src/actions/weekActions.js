@@ -17,7 +17,7 @@ import {
   WEEK_DETAILS_SUCCESS
 } from '../constants/weekConstants';
 
-export const createWeek = (name,startDate,endDate,description) => async (dispatch) => {
+export const createWeek = (name,startDate,endDate,description,user) => async (dispatch) => {
   dispatch({ type:WEEK_CREATE_REQUEST });
   try {
     const { data } = await Axios.post('/api/weeks/create', {
@@ -25,6 +25,7 @@ export const createWeek = (name,startDate,endDate,description) => async (dispatc
       startDate,
       endDate,
       description,
+      user
     });
     dispatch({ type:WEEK_CREATE_SUCCESS, payload: data });
   } catch (error) {

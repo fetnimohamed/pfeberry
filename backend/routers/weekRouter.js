@@ -23,6 +23,7 @@ weekRouter.post(
       startDate: req.body.startDate,
       endDate: req.body.endDate,
       description: req.body.description,
+      user:req.body.user,
       deleted: req.body.deleted,
     });
     const createdWeek = await week.save();
@@ -32,6 +33,7 @@ weekRouter.post(
       startDate: createdWeek.startDate,
       endDate: createdWeek.endDate,
       description: createdWeek.description,
+      user:createdWeek.user,
       deleted: createdWeek.deleted,
 
     });
@@ -56,7 +58,7 @@ weekRouter.get(
   "/",
   //isAuth,
   expressAsyncHandler(async (req, res) => {
-    const weeks = await Week.find();
+    const weeks = await Week.find().populate('user','firstName');
     res.send({ weeks });
   })
 );
@@ -85,6 +87,7 @@ weekRouter.put(
       week.startDate = req.body.startDate || week.startDate;
       week.endDate = req.body.endDate || week.endDate;
       week.description = req.body.description || week.description;
+      week.user=req.body.user||week.user;
       const updatedWeek = await week.save();
       res.send({ message: 'week Updated', week: updatedWeek });
     } else {

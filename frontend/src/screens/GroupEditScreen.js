@@ -7,12 +7,19 @@ import { detailsGroups, updatedGroup } from '../actions/groupActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { GROUP_UPDATE_RESET } from '../constants/groupConstants';
+import {listUsers}from '../actions/userActions'
+import {USER_DETAILS_RESET} from '../constants/userConstants'
 
 export default function GroupEditScreen(props) {
   
   let {id}=useParams()
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [user,setUser]=useState('');
+  const userList = useSelector((state) => state.userList);
+  const { users } = userList;
+  const { pageNumber} = useParams();
+  const search='';
   const  groupDetails = useSelector((state) => state.groupDetails);
   const { loading, error, group } = groupDetails;
   const navigate =useNavigate()
@@ -24,6 +31,14 @@ export default function GroupEditScreen(props) {
     success: successUpdate,
   } = groupUpdate;
 
+  useEffect(() => {
+    dispatch(listUsers({search,pageNumber}));
+
+    dispatch({
+      type: USER_DETAILS_RESET,
+    });
+   }, [dispatch,search,pageNumber,user]);
+      
   
     useEffect(() => {
     if (successUpdate) {
@@ -35,14 +50,14 @@ export default function GroupEditScreen(props) {
     } else {
       setName(group.name);
       setDescription(group.description);
-     
+      setUser(group.user)
     }
   }, [dispatch,successUpdate, group, id,navigate]);
 
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(updatedGroup({ _id: id, name,description}));
+    dispatch(updatedGroup({ _id: id, name,description,user}));
   };
   return (
     <div>
@@ -80,7 +95,29 @@ export default function GroupEditScreen(props) {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></input>
-            </div>        
+            </div>      
+            <div>
+          <label htmlFor='userref'>admin affected</label>
+          <select 
+            onChange={(e) => {setUser(e.target.value)
+            console.log("hello",e.target)
+            console.log(user)
+          }
+          }
+          
+          > 
+                
+                <option defaultValue >chose...</option>
+            { 
+            users?.users?.map((user)=>
+            <option  
+            value={user._id}
+            key ={user._id}
+            >{user.firstName}</option>
+            )}
+          </select>
+
+        </div>  
             <div>
               <button type="submit" className="primary">
                 Update

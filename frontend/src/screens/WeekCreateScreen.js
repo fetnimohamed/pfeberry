@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createWeek} from '../actions/weekActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import {useNavigate } from 'react-router-dom';
+import {listUsers}from '../actions/userActions'
+import {USER_DETAILS_RESET} from '../constants/userConstants';
+import {useNavigate ,useParams } from 'react-router-dom';
 
 
 export default function WeekCreateScreen(props) {
@@ -11,6 +13,11 @@ export default function WeekCreateScreen(props) {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [description, setDescription] = useState('');
+  const [user,setUser]=useState('');
+  const { pageNumber} = useParams();
+  const search='';
+  const userList = useSelector((state) => state.userList);
+  const { users } = userList;
   const navigate=useNavigate();
   const  weekCreate= useSelector((state) => state.weekCreate);
   const { week, loading, error } = weekCreate;
@@ -20,9 +27,19 @@ export default function WeekCreateScreen(props) {
     if (startDate >= endDate) {
       alert('StartDate and EndDate error');
     } else {
-      dispatch(createWeek(name,startDate, endDate, description));
+      console.log(user);
+      dispatch(createWeek(name,startDate, endDate, description,user));
     }
   };
+  useEffect(() => {
+    dispatch(listUsers({search,pageNumber}));
+
+    dispatch({
+      type: USER_DETAILS_RESET,
+    });
+   }, [dispatch,search,pageNumber,user]);
+
+
   useEffect(() => {
     if (week) {
       navigate('/weeksList')
@@ -75,6 +92,28 @@ export default function WeekCreateScreen(props) {
             required
             onChange={(e) => setDescription(e.target.value)}
           ></input>
+        </div>
+        <div>
+          <label htmlFor='userref'>admin affected</label>
+          <select 
+            onChange={(e) => {setUser(e.target.value)
+            console.log("hello",e.target)
+            console.log(user);
+          }
+          }
+          
+          > 
+                
+                <option defaultValue >chose...</option>
+            { 
+            users?.users?.map((user)=>
+            <option  
+            value={user._id}
+            key ={user._id}
+            >{user.firstName}</option>
+            )}
+          </select>
+
         </div>
         <div>
           <label />

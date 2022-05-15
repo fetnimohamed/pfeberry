@@ -71,6 +71,7 @@ export default function GroupListScreen(props) {
             <tr>
               <th>NAME</th>
               <th>DESCRIPTION</th>
+              <th>AFFECTED ADMIN</th>
               <th>ACTIONS</th>
             </tr>
           </thead>
@@ -90,6 +91,8 @@ export default function GroupListScreen(props) {
               <tr key={group._id}>
                 <td>{group.name}</td>
                 <td>{group.description}</td>
+                {console.log(group.user.firstName)}
+                <td>{group.user.firstName}</td>
                 <td>
                  <button
                     type="button"

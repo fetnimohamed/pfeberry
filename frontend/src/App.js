@@ -31,9 +31,12 @@ import GroupEditScreen from './screens/GroupEditScreen';
 import ComponentStateListScreen from './screens/CompStateListScreen';
 import CompStateCreateScreen from './screens/compStateCreateScreen';
 import CompStateEditScreen from './screens/CompStateEditScreen';
+
+
+
 function App() {
 
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+ const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
@@ -43,8 +46,7 @@ function App() {
  
    return (
     <BrowserRouter>
-    
-      <div className="grid-container">
+    <div className="grid-container">
         
         <header className="row">
           <button
@@ -88,7 +90,9 @@ function App() {
           
           
         </header>
-        <aside className={sidebarIsOpen ? "open" : ""}>
+    
+
+    <aside className={sidebarIsOpen ? "open" : ""}>
           <ul className="">
             <li>
               <strong>LEONI</strong>
@@ -101,13 +105,9 @@ function App() {
               </button>
              
             </li>
-             <ul>
-              <li>
-                <Link  to="/usersList"> Users</Link>
-              </li>
-               <li>
-                <Link  to="/weeksList"> Weeks</Link>
-              </li>
+            </ul>
+        { userInfo && (userInfo.isAdmin||userInfo.isSuperAdmin) ?
+               <ul>
               <li>
                 <Link  to="/taskThemesList"> Task Themes</Link>
               </li>
@@ -118,22 +118,41 @@ function App() {
                 <Link  to="/taskModelsList"> Task Models</Link>
               </li>
                <li>
+                <Link  to="/compStateList"> Components States </Link>
+              </li>
+              </ul>:<h5></h5>
+           
+           }
+           <hr></hr>
+          <h5>Settings</h5>
+                     <hr></hr>
+
+          { userInfo && userInfo.isSuperAdmin ?
+           <ul>
+               <li>
                 <Link  to="/systemList"> Systems </Link>
               </li>
                 <li>
                 <Link  to="/groupList"> Groups </Link>
               </li>
-               <li>
-                <Link  to="/compStateList"> Components States </Link>
+              <li>
+                <Link  to="/usersList"> Users</Link>
               </li>
-              </ul>
-           </ul>
+               <li>
+                <Link  to="/weeksList"> Weeks</Link>
+              </li>
+
+           </ul>:<h3></h3>
+          }
         </aside>
       
+
+
+     
+       
      
           
         <main>
-             
           <Routes>
               <Route path='/compState/:id/edit' element={<CompStateEditScreen/>}></Route>
               <Route path='/compState/CreateCompState' element={<CompStateCreateScreen />}></Route>           
@@ -165,9 +184,8 @@ function App() {
               <Route path="/user/:id/edit" element={<EditUserScreen/>}></Route>
           </Routes>
         </main>
-        <footer className="row center">All right reserved</footer>
-     
-      </div>
+        
+          </div>
     </BrowserRouter>
   );
 }

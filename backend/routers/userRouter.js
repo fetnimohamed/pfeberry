@@ -24,6 +24,9 @@ userRouter.post(
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
+          isSuperAdmin:user.isSuperAdmin,
+          isAdmin: user.isAdmin,
+          isDispatcher: user.isDispatcher,
           token: generateToken(user),
         });
         return;
@@ -82,16 +85,25 @@ userRouter.get(
   expressAsyncHandler(async (req, res) => {
     const pageSize = 2;
     const page = Number(req.query.pageNumber) || 1;
+    const search=req.query.search||"";
     const skip =pageSize * (page - 1)
-    const users = await User.find()
-      .skip(skip)
-      .limit(pageSize);
-    const count = await User .count();
-    const pages= Math.ceil(count/ pageSize);
-    
-    res.send({ page, pages ,pageSize,users});;
-  })
-);
+    if (search===""){
+      const users = (await User.find()
+        .skip(skip)
+        .limit(pageSize));;
+         const count = await User .count();
+         const pages= Math.ceil(count/ pageSize);
+         res.send({ page, pages ,pageSize,users})
+    }else{
+       const users = (await User.find()
+       ).filter(user => user.firstName.toLowerCase().includes(search.toLowerCase())); 
+       
+         res.send({users})
+
+  }}
+));
+
+
 
 userRouter.delete(
   "/:id",

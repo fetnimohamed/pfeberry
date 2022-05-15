@@ -74,7 +74,7 @@ export const signout = () => (dispatch) => {
 };
 
 
-export const listUsers = ({ pageNumber = ''}) => async (
+export const listUsers = ({ search='',pageNumber = ''}) => async (
   dispatch,getState
 ) => {
   dispatch({ type: USER_LIST_REQUEST });
@@ -82,7 +82,7 @@ export const listUsers = ({ pageNumber = ''}) => async (
     const {
      userSignin: { userInfo },
    } = getState();
-    const { data } = await Axios.get(`/api/users?pageNumber=${pageNumber}`, {
+    const { data } = await Axios.get(`/api/users?pageNumber=${pageNumber}&search=${search}`, {
      headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },

@@ -17,12 +17,13 @@ import {
   GROUP_DETAILS_SUCCESS
 } from '../constants/groupConstants';
 
-export const CreateGroup = (name,description) => async (dispatch) => {
+export const CreateGroup = (name,description,user) => async (dispatch) => {
   dispatch({ type:GROUP_CREATE_REQUEST });
   try {
     const { data } = await Axios.post('/api/groups/create', {
       name,
-      description
+      description,
+      user,
     });
     dispatch({ type:GROUP_CREATE_SUCCESS, payload: data.group });
   } catch (error) {
