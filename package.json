@@ -1,12 +1,11 @@
 {
   "name": "projet",
-  
   "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
+    "start": "nodemon --watch backend --exec  node --experimental-modules backend/server.js"
   },
   "author": "",
   "license": "ISC",
