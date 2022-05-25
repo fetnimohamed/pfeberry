@@ -20,49 +20,35 @@ export const utilities = {
     children: [
         {
             id: 'util-typography',
-            title: 'theme',
+            title: 'Task themes',
             type: 'item',
             url: '/utils/util-typography',
-            icon: icons['IconPalette'],
+            icon: icons['IconPalettes'],
             breadcrumbs: false
         },
         {
             id: 'util-color',
-            title: 'Color',
+            title: 'Task States',
             type: 'item',
             url: '/utils/util-color',
-            icon: icons['IconPalette'],
+            icon: icons['square-check'],
             breadcrumbs: false
         },
         {
             id: 'util-shadow',
-            title: 'Shadow',
+            title: 'Task Models',
             type: 'item',
             url: '/utils/util-shadow',
-            icon: icons['IconShadow'],
+            icon: icons['box-model-2'],
             breadcrumbs: false
         },
         {
-            id: 'icons',
-            title: 'TEST',
-            type: 'collapse',
-            icon: icons['IconWindmill'],
-            children: [
-                {
-                    id: 'tabler-icons',
-                    title: 'Tabler Icons',
-                    type: 'item',
-                    url: '/icons/tabler-icons',
-                    breadcrumbs: false
-                },
-                {
-                    id: 'material-icons',
-                    title: 'Material Icons',
-                    type: 'item',
-                    url: '/icons/material-icons',
-                    breadcrumbs: false
-                }
-            ]
+            id: 'util-shadow',
+            title: 'Components states',
+            type: 'item',
+            url: '/utils/util-shadow',
+            icon: icons['components'],
+            breadcrumbs: false
         }
     ]
 };

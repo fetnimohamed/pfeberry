@@ -44,7 +44,7 @@ const MainRoutes = () => {
                     <AuthGuard>
                         <Route path="/dashboard/default" component={DashboardDefault} />
 
-                        <Route path="/utils/util-typography" component={Theme} />
+                        <Route path="/theme" component={Theme} />
                         <Route path="/utils/util-color" component={UtilsColor} />
                         <Route path="/utils/util-shadow" component={UtilsShadow} />
                         <Route path="/icons/tabler-icons" component={UtilsTablerIcons} />
