@@ -22,7 +22,7 @@ export const utilities = {
             id: 'util-typography',
             title: 'Task themes',
             type: 'item',
-            url: '/utils/util-typography',
+            url: '/theme',
             icon: icons['IconPalettes'],
             breadcrumbs: false
         },

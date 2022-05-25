@@ -30,7 +30,7 @@ const MainRoutes = () => {
             path={[
                 '/dashboard/default',
 
-                '/utils/util-typography',
+                '/theme',
                 '/utils/util-color',
                 '/utils/util-shadow',
                 '/icons/tabler-icons',
