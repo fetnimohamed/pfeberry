@@ -21,6 +21,13 @@ import {
     taskThemeCreateReducer,
     taskThemeDetailsReducer
 } from './reducers/taskThemeReducers';
+import {
+    taskStateListReducer,
+    taskStateDeleteReducer,
+    taskStateUpdateReducer,
+    taskStateCreateReducer,
+    taskStateDetailsReducer
+} from './reducers/taskStateReducers';
 
 //-----------------------|| COMBINE REDUCER ||-----------------------//
 
@@ -37,6 +44,11 @@ const reducer = combineReducers({
     taskThemeUpdate: taskThemeUpdateReducer,
     taskThemeCreate: taskThemeCreateReducer,
     taskThemeDetails: taskThemeDetailsReducer,
+    taskStateList: taskStateListReducer,
+    taskStateDelete: taskStateDeleteReducer,
+    taskStateUpdate: taskStateUpdateReducer,
+    taskStateCreate: taskStateCreateReducer,
+    taskStateDetails: taskStateDetailsReducer,
     account: persistReducer(
         {
             key: 'account',

@@ -30,12 +30,12 @@ export const utilities = {
             id: 'util-color',
             title: 'Task States',
             type: 'item',
-            url: '/utils/util-color',
+            url: '/taskStates',
             icon: icons['square-check'],
             breadcrumbs: false
         },
         {
-            id: 'util-shadow',
+            id: 'Task-Models',
             title: 'Task Models',
             type: 'item',
             url: '/utils/util-shadow',
@@ -43,7 +43,7 @@ export const utilities = {
             breadcrumbs: false
         },
         {
-            id: 'util-shadow',
+            id: 'Components-states',
             title: 'Components states',
             type: 'item',
             url: '/utils/util-shadow',

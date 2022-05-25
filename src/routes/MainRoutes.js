@@ -6,6 +6,7 @@ import MainLayout from './../layout/MainLayout';
 import Loadable from '../ui-component/Loadable';
 import AuthGuard from './../utils/route-guard/AuthGuard';
 import Theme from '../views/taskTheme/theme';
+import { TaskStatesList } from '../views/taskStates/taskStatesList';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('../views/dashboard/Default')));
@@ -31,7 +32,7 @@ const MainRoutes = () => {
                 '/dashboard/default',
 
                 '/theme',
-                '/utils/util-color',
+                '/taskStates',
                 '/utils/util-shadow',
                 '/icons/tabler-icons',
                 '/icons/material-icons',
@@ -45,7 +46,7 @@ const MainRoutes = () => {
                         <Route path="/dashboard/default" component={DashboardDefault} />
 
                         <Route path="/theme" component={Theme} />
-                        <Route path="/utils/util-color" component={UtilsColor} />
+                        <Route path="/taskStates" component={TaskStatesList} />
                         <Route path="/utils/util-shadow" component={UtilsShadow} />
                         <Route path="/icons/tabler-icons" component={UtilsTablerIcons} />
                         <Route path="/icons/material-icons" component={UtilsMaterialIcons} />
