@@ -71,6 +71,8 @@ export const TaskStatesList = () => {
     };
     return (
         <>
+            <h1>Task States</h1>
+
             <Button color="primary" onClick={handleAdd} variant="contained" style={{ marginBottom: 25, float: 'right' }}>
                 Create task state
             </Button>

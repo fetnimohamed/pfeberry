@@ -1,7 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import configData from '../../../../config';
-
+import { signout } from '../../../../store/actions/userActions';
+// import {detailsUser}from'../../../../store/constants/userConstants'
+import PersonIcon from '@mui/icons-material/Person';
 // material-ui
 import { makeStyles, useTheme } from '@material-ui/styles';
 import {
@@ -121,7 +123,7 @@ const ProfileSection = () => {
     const classes = useStyles();
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
-    const account = useSelector((state) => state.account);
+    const account = useSelector((state) => state.userSignin);
     const dispatcher = useDispatch();
 
     const [sdm, setSdm] = React.useState(true);
@@ -132,20 +134,8 @@ const ProfileSection = () => {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
     const handleLogout = () => {
-        console.log(account.token);
-        axios
-            .post(configData.API_SERVER + 'users/logout', { token: `${account.token}` }, { headers: { Authorization: `${account.token}` } })
-            .then(function (response) {
-                // Force the LOGOUT
-                //if (response.data.success) {
-                dispatcher({ type: LOGOUT });
-                //} else {
-                //    console.log('response - ', response.data.msg);
-                //}
-            })
-            .catch(function (error) {
-                console.log('error - ', error);
-            });
+        console.log(account);
+        dispatcher(signout());
     };
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -165,22 +155,20 @@ const ProfileSection = () => {
 
         prevOpen.current = open;
     }, [open]);
+
     return (
         <React.Fragment>
             <Chip
                 classes={{ label: classes.profileLabel }}
                 className={classes.profileChip}
-                icon={
-                    <Avatar
-                        src={User1}
-                        className={classes.headerAvatar}
-                        ref={anchorRef}
-                        aria-controls={open ? 'menu-list-grow' : undefined}
-                        aria-haspopup="true"
-                        color="inherit"
-                    />
+                icon={<PersonIcon />}
+                label={
+                    account.userInfo.firstName.charAt(0).toUpperCase() +
+                    account.userInfo.firstName.substr(1).toLowerCase() +
+                    ' ' +
+                    account.userInfo.lastName.charAt(0).toUpperCase() +
+                    account.userInfo.lastName.substr(1).toLowerCase()
                 }
-                label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
                 variant="outlined"
                 ref={anchorRef}
                 aria-controls={open ? 'menu-list-grow' : undefined}
@@ -214,73 +202,22 @@ const ProfileSection = () => {
                                     <CardContent className={classes.cardContent}>
                                         <Grid container direction="column" spacing={0}>
                                             <Grid item className={classes.flex}>
-                                                <Typography variant="h4">Good Morning,</Typography>
-                                                <Typography component="span" variant="h4" className={classes.name}>
-                                                    John
+                                                <Typography variant="h4">
+                                                    Good Morning,{' '}
+                                                    {' ' +
+                                                        account.userInfo.firstName.charAt(0).toUpperCase() +
+                                                        account.userInfo.firstName.substr(1).toLowerCase()}{' '}
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
                                                 <Typography variant="subtitle2">Project Admin</Typography>
                                             </Grid>
                                         </Grid>
-                                        <OutlinedInput
-                                            className={classes.searchControl}
-                                            id="input-search-profile"
-                                            value={value}
-                                            onChange={(e) => setValue(e.target.value)}
-                                            placeholder="Search profile options"
-                                            startAdornment={
-                                                <InputAdornment position="start">
-                                                    <IconSearch stroke={1.5} size="1.3rem" className={classes.startAdornment} />
-                                                </InputAdornment>
-                                            }
-                                            aria-describedby="search-helper-text"
-                                            inputProps={{
-                                                'aria-label': 'weight'
-                                            }}
-                                        />
+
                                         <Divider />
                                         <PerfectScrollbar className={classes.ScrollHeight}>
                                             {/* <UpgradePlanCard /> */}
-                                            <Divider />
-                                            <Card className={classes.card}>
-                                                <CardContent>
-                                                    <Grid container spacing={3} direction="column">
-                                                        <Grid item>
-                                                            <Grid item container alignItems="center" justifyContent="space-between">
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle1">Start DND Mode</Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Switch
-                                                                        color="primary"
-                                                                        checked={sdm}
-                                                                        onChange={(e) => setSdm(e.target.checked)}
-                                                                        name="sdm"
-                                                                        size="small"
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Grid item container alignItems="center" justifyContent="space-between">
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle1">Allow Notifications</Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Switch
-                                                                        checked={notification}
-                                                                        onChange={(e) => setNotification(e.target.checked)}
-                                                                        name="sdm"
-                                                                        size="small"
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </CardContent>
-                                            </Card>
-                                            <Divider />
+
                                             <List component="nav" className={classes.navContainer}>
                                                 <ListItemButton
                                                     className={classes.listItem}

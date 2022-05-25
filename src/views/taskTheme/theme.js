@@ -74,6 +74,7 @@ export default function Theme() {
     };
     return (
         <>
+            <h1>Task Themes</h1>
             <Button color="primary" onClick={handleAdd} variant="contained" style={{ marginBottom: 25, float: 'right' }}>
                 Create task theme
             </Button>
