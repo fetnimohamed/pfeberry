@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -37,9 +36,17 @@ const style = {
 };
 
 export default function Theme() {
+    ///open modals///
     const [open, setOpen] = React.useState(false);
+    let [openCreate, setOpenCreate] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const handleAdd = () => {
+        setOpenCreate(!openCreate);
+    };
+    const [openDelete, setOpenDelete] = useState(false);
+    const handleCloseAdd = () => setOpenCreate(false);
+    ///open modals///
     const taskThemeList = useSelector((state) => state.taskThemeList);
     const { loading, error, taskThemes } = taskThemeList;
     const [theme, setTheme] = useState({});
@@ -53,20 +60,23 @@ export default function Theme() {
         dispatch({
             type: TASKTHEME_DETAILS_RESET
         });
-    }, [dispatch, successDelete]);
+    }, [dispatch, successDelete, open, openCreate]);
     useEffect(() => {
         if (taskThemes?.taskThemes) {
             setThemes(taskThemes.taskThemes);
             console.log(taskThemes);
         }
     }, [taskThemes]);
+
     const deleteHandler = (taskTheme) => {
-        if (window.confirm('Are you sure?')) {
-            dispatch(deleteTaskTheme(taskTheme._id));
-        }
+        setOpenDelete(true);
+        setTheme(taskTheme);
     };
     return (
         <>
+            <Button color="primary" onClick={handleAdd} variant="contained" style={{ marginBottom: 25, float: 'right' }}>
+                Create task theme
+            </Button>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -97,38 +107,40 @@ export default function Theme() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            {/* <table className="table">
-                <thead>
-                    <tr>
-                        <th>NAME</th>
-                        <th>DESCRIPTION</th>
-                        <th>ACTIONS</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {theme.length > 0 &&
-                        theme.map((taskTheme) => (
-                            <tr key={taskTheme._id}>
-                                <td>{taskTheme.name}</td>
-                                <td>{taskTheme.description}</td>
-                                <td>
-                                    <Button onClick={handleOpen}>Open modal</Button>
-                                    <button type="button" className="small" onClick={handleOpen}>
-                                        Edit
-                                    </button>
-                                    <button type="button" className="small">
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                </tbody>
-            </table> */}
-            <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+            <Modal open={open} onClose={handleClose}>
                 <Box sx={style}>
                     {/* <AddTaskTheme /> */}
-                    <EditTaskTheme theme={theme} />
+                    <EditTaskTheme theme={theme} close={handleClose} />
+                </Box>
+            </Modal>
+            <Modal open={openCreate} onClose={handleCloseAdd}>
+                <Box sx={style}>
+                    {/* <AddTaskTheme /> */}
+                    <AddTaskTheme theme={theme} close={handleCloseAdd} />
+                </Box>
+            </Modal>
+            <Modal open={openDelete} onClose={() => setOpenDelete(false)}>
+                <Box sx={style}>
+                    <h3>Do you really want to delete this task theme ?</h3>
+                    <Button
+                        color="primary"
+                        onClick={() => {
+                            dispatch(deleteTaskTheme(theme._id));
+                            setOpenDelete(false);
+                        }}
+                        variant="contained"
+                        style={{ float: 'right' }}
+                    >
+                        Yes
+                    </Button>
+                    <Button
+                        color="error"
+                        onClick={() => setOpenDelete(false)}
+                        variant="contained"
+                        style={{ marginRight: 15, float: 'right' }}
+                    >
+                        No
+                    </Button>
                 </Box>
             </Modal>
         </>
