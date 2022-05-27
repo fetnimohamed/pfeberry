@@ -38,7 +38,7 @@ export const utilities = {
             id: 'Task-Models',
             title: 'Task Models',
             type: 'item',
-            url: '/utils/util-shadow',
+            url: '/taskModels',
             icon: icons['box-model-2'],
             breadcrumbs: false
         },
@@ -46,7 +46,7 @@ export const utilities = {
             id: 'Components-states',
             title: 'Components states',
             type: 'item',
-            url: '/utils/util-shadow',
+            url: '/componentState',
             icon: icons['components'],
             breadcrumbs: false
         }

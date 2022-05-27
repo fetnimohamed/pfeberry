@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+//////
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-//////
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -17,8 +17,6 @@ import Paper from '@mui/material/Paper';
 /////
 // import { useNavigate } from 'react-router-dom';
 import { deleteTaskTheme, listTaskThemes } from '../../store/actions/taskThemeActions';
-// import LoadingBox from '../components/LoadingBox';
-// import MessageBox from '../components/MessageBox';
 import { TASKTHEME_DETAILS_RESET } from '../../store/constants/taskThemeConstants';
 import { AddTaskTheme } from './AddTaskTheme';
 import { EditTaskTheme } from './EditTaskTheme';

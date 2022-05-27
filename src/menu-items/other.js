@@ -18,7 +18,7 @@ export const other = {
             id: 'Settings',
             title: 'Settings',
             type: 'item',
-            url: '/sample-page',
+            url: '/settings',
             icon: icons['IconBrandChrome'],
             breadcrumbs: false
         }

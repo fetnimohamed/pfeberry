@@ -7,6 +7,9 @@ import Loadable from '../ui-component/Loadable';
 import AuthGuard from './../utils/route-guard/AuthGuard';
 import Theme from '../views/taskTheme/theme';
 import { TaskStatesList } from '../views/taskStates/taskStatesList';
+import { TaskModelsList } from '../views/taskModels/TaskModelsList';
+import { ComponentStatesList } from '../views/componentStates/ComponentStatesList';
+import { Setting } from '../views/settings/Setting';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('../views/dashboard/Default')));
@@ -27,19 +30,7 @@ const MainRoutes = () => {
     const location = useLocation();
 
     return (
-        <Route
-            path={[
-                '/dashboard/default',
-
-                '/theme',
-                '/taskStates',
-                '/utils/util-shadow',
-                '/icons/tabler-icons',
-                '/icons/material-icons',
-
-                '/sample-page'
-            ]}
-        >
+        <Route path={['/dashboard/default', '/theme', '/taskStates', '/taskModels', '/componentState', '/componentState', '/settings']}>
             <MainLayout>
                 <Switch location={location} key={location.pathname}>
                     <AuthGuard>
@@ -47,11 +38,9 @@ const MainRoutes = () => {
 
                         <Route path="/theme" component={Theme} />
                         <Route path="/taskStates" component={TaskStatesList} />
-                        <Route path="/utils/util-shadow" component={UtilsShadow} />
-                        <Route path="/icons/tabler-icons" component={UtilsTablerIcons} />
-                        <Route path="/icons/material-icons" component={UtilsMaterialIcons} />
-
-                        <Route path="/sample-page" component={SamplePage} />
+                        <Route path="/taskModels" component={TaskModelsList} />
+                        <Route path="/componentState" component={ComponentStatesList} />
+                        <Route path="/settings" component={Setting} />
                     </AuthGuard>
                 </Switch>
             </MainLayout>

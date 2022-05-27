@@ -28,6 +28,13 @@ import {
     taskStateCreateReducer,
     taskStateDetailsReducer
 } from './reducers/taskStateReducers';
+import {
+    taskModelListReducer,
+    taskModelDeleteReducer,
+    taskModelUpdateReducer,
+    taskModelCreateReducer,
+    taskModelDetailsReducer
+} from './reducers/taskModelReducers';
 
 //-----------------------|| COMBINE REDUCER ||-----------------------//
 
@@ -49,6 +56,11 @@ const reducer = combineReducers({
     taskStateUpdate: taskStateUpdateReducer,
     taskStateCreate: taskStateCreateReducer,
     taskStateDetails: taskStateDetailsReducer,
+    taskModelList: taskModelListReducer,
+    taskModelDelete: taskModelDeleteReducer,
+    taskModelUpdate: taskModelUpdateReducer,
+    taskModelCreate: taskModelCreateReducer,
+    taskModelDetails: taskModelDetailsReducer,
     account: persistReducer(
         {
             key: 'account',
