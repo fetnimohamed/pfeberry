@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // project imports
 import { store, persister } from './store';
 import * as serviceWorker from './serviceWorker';
@@ -22,6 +23,7 @@ ReactDOM.render(
         <PersistGate loading={null} persistor={persister}>
             <BrowserRouter basename={config.basename}>
                 <App />
+                <ToastContainer />
             </BrowserRouter>
         </PersistGate>
     </Provider>,
