@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {deleteUser ,listUsers } from '../../store/actions/userActions';
+import { deleteUser, listUsers } from '../../store/actions/userActions';
 import { USER_DETAILS_RESET } from '../../store/constants/userConstants';
 //////
 import EditIcon from '@mui/icons-material/Edit';
@@ -17,7 +17,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 //import { AddUser } from './AddUser';
-//import { EditUser } from './EditUser';
+import { EditUser } from './EditUser';
 /////
 const style = {
     position: 'absolute',
@@ -49,13 +49,13 @@ export const UserList = () => {
     const userList = useSelector((state) => state.userList);
     const { loading, error, users } = userList;
     const dispatch = useDispatch();
-     const userDelete = useSelector((state) => state.userDelete);
-    const {loading: loadingDelete, error: errorDelete,success: successDelete,} = userDelete;
+    const userDelete = useSelector((state) => state.userDelete);
+    const { loading: loadingDelete, error: errorDelete, success: successDelete } = userDelete;
 
     useEffect(() => {
         dispatch(listUsers());
         dispatch({
-        type: USER_DETAILS_RESET,
+            type: USER_DETAILS_RESET
         });
     }, [dispatch, successDelete, openCreate, open]);
 
@@ -70,14 +70,15 @@ export const UserList = () => {
         setOpenDelete(true);
         setUser(user);
     };
-    const role =(user)=>{
-         if (user.isSuperAdmin===true) {    
-             return"super admin"}
-          else if (user.isAdmin===true){
-              return "admin"} 
-           else {
-          return "Dispatcher"}
-        }   
+    const role = (user) => {
+        if (user.isSuperAdmin === true) {
+            return 'super admin';
+        } else if (user.isAdmin === true) {
+            return 'admin';
+        } else {
+            return 'Dispatcher';
+        }
+    };
 
     return (
         <>
@@ -94,7 +95,7 @@ export const UserList = () => {
                             <TableCell>First Name</TableCell>
                             <TableCell>Last Name</TableCell>
                             <TableCell>Email</TableCell>
-                             <TableCell>Role</TableCell>
+                            <TableCell>Role</TableCell>
                             <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -105,7 +106,8 @@ export const UserList = () => {
                                 <TableCell>{row.lastName}</TableCell>
                                 <TableCell>{row.email} </TableCell>
                                 <TableCell>{role(row)} </TableCell>
-                              {}  <TableCell>
+                                {}{' '}
+                                <TableCell>
                                     <EditIcon
                                         onClick={() => {
                                             setUser(row);
@@ -119,17 +121,17 @@ export const UserList = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            {/*
+
             <Modal open={open} onClose={handleClose}>
                 <Box sx={style}>
-                    <EditUser state={user} close={handleClose} />
+                    <EditUser user={user} close={handleClose} />
                 </Box>
             </Modal>
             <Modal open={openCreate} onClose={handleCloseAdd}>
                 <Box sx={style}>
-                    <AddUser close={handleCloseAdd} />
+                    <EditUser close={handleCloseAdd} />
                 </Box>
-                                    </Modal>*/}
+            </Modal>
             <Modal open={openDelete} onClose={() => setOpenDelete(false)}>
                 <Box sx={style}>
                     <h3>Do you really want to delete this user ?</h3>
