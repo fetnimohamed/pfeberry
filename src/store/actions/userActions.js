@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { toast } from 'react-toastify';
 import {
     USER_SIGNIN_FAIL,
     USER_SIGNIN_REQUEST,
@@ -36,9 +37,16 @@ export const signin = (email, password) => async (dispatch) => {
                 }
             }
         );
-        dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
-        localStorage.setItem('userInfo', JSON.stringify(data));
+        if (data.isDispatcher) {
+            dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
+            localStorage.setItem('userInfo', JSON.stringify(data));
+            toast.success(`hello ${data.firstName}`);
+        } else {
+            toast.error('you not a dispatcher');
+        }
     } catch (error) {
+        toast.error('you not a dispatcher');
+
         dispatch({
             type: USER_SIGNIN_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
@@ -74,25 +82,23 @@ export const signout = () => (dispatch) => {
     document.location.href = '/login';
 };
 
-export const listUsers =
-    () =>
-    async (dispatch, getState) => {
-        dispatch({ type: USER_LIST_REQUEST });
-        try {
-            const {
-                userSignin: { userInfo }
-            } = getState();
-            const { data } = await Axios.get(`/api/users`, {
-                headers: {
-                    Authorization: `Bearer ${userInfo.token}`
-                }
-            });
-            dispatch({ type: USER_LIST_SUCCESS, payload: data });
-        } catch (error) {
-            const message = error.response && error.response.data.message ? error.response.data.message : error.message;
-            dispatch({ type: USER_LIST_FAIL, payload: message });
-        }
-    };
+export const listUsers = () => async (dispatch, getState) => {
+    dispatch({ type: USER_LIST_REQUEST });
+    try {
+        const {
+            userSignin: { userInfo }
+        } = getState();
+        const { data } = await Axios.get(`/api/users`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        });
+        dispatch({ type: USER_LIST_SUCCESS, payload: data });
+    } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+        dispatch({ type: USER_LIST_FAIL, payload: message });
+    }
+};
 
 export const deleteUser = (userId) => async (dispatch, getState) => {
     dispatch({ type: USER_DELETE_REQUEST, payload: userId });
