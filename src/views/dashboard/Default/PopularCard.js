@@ -16,6 +16,7 @@ import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined';
 import KeyboardArrowUpOutlinedIcon from '@material-ui/icons/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
+import { PieChart } from './PieChart';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -82,9 +83,9 @@ const PopularCard = ({ isLoading }) => {
                             <Grid item xs={12}>
                                 <Grid container alignContent="center" justifyContent="space-between">
                                     <Grid item>
-                                        <Typography variant="h4">Popular Stocks</Typography>
+                                        <Typography variant="h4">Tasks per department</Typography>
                                     </Grid>
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <MoreHorizOutlinedIcon
                                             fontSize="small"
                                             className={classes.primaryLight}
@@ -112,13 +113,13 @@ const PopularCard = ({ isLoading }) => {
                                             <MenuItem onClick={handleClose}> This Month</MenuItem>
                                             <MenuItem onClick={handleClose}> This Year </MenuItem>
                                         </Menu>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                                <BajajAreaChartCard />
+                                <PieChart />
                             </Grid>
-                            <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                                 <Grid container direction="column">
                                     <Grid item>
                                         <Grid container alignItems="center" justifyContent="space-between">
@@ -273,15 +274,9 @@ const PopularCard = ({ isLoading }) => {
                                         </Typography>
                                     </Grid>
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </CardContent>
-                    <CardActions className={classes.cardAction}>
-                        <Button size="small" disableElevation>
-                            View All
-                            <ChevronRightOutlinedIcon />
-                        </Button>
-                    </CardActions>
                 </MainCard>
             )}
         </React.Fragment>

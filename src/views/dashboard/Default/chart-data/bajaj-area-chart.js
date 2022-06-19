@@ -1,44 +1,57 @@
 //-----------------------|| DASHBOARD - BAJAJ AREA CHART ||-----------------------//
 
 const chartData = {
-    type: 'area',
+    type: 'pie',
     height: 95,
+    chart: {
+        width: 380,
+        type: 'pie'
+    },
     options: {
         chart: {
-            id: 'support-chart',
-            sparkline: {
-                enabled: true
-            }
+            width: 200
         },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 1
-        },
-        tooltip: {
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: false
-            },
-            y: {
-                title: {
-                    formatter: (seriesName) => 'Ticket '
-                }
-            },
-            marker: {
-                show: false
-            }
+        legend: {
+            position: 'bottom'
         }
+        // chart: {
+        //     id: 'support-chart',
+        //     sparkline: {
+        //         enabled: true
+        //     }
+        // },
+        // dataLabels: {
+        //     enabled: false
+        // },
+        // stroke: {
+        //     curve: 'smooth',
+        //     width: 1
+        // },
+        // tooltip: {
+        //     fixed: {
+        //         enabled: false
+        //     },
+        //     x: {
+        //         show: false
+        //     },
+        //     y: {
+        //         title: {
+        //             formatter: (seriesName) => 'Ticket '
+        //         }
+        //     },
+        //     marker: {
+        //         show: false
+        //     }
+        // }
     },
     series: [
         {
-            data: [0, 15, 10, 50, 30, 40, 25]
+            data: [0, 15, 10, 50]
         }
-    ]
+    ],
+    chartOptions: {
+        labels: ['Apple', 'Mango', 'Orange', 'Watermelon']
+    }
 };
 
 export default chartData;

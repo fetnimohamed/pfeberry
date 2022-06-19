@@ -32,16 +32,16 @@ export const pages = {
     caption: 'Task  ',
     type: 'group',
     children: [
-        // { id: 'util-myTASK', title: 'My Tasks', type: 'item', url: '/myTasks', icon: icons['IconActivity'], breadcrumbs: false },
-        // { id: 'util-allTask', title: 'All Tasks', type: 'item', url: '/tasks', icon: icons['IconNotes'], breadcrumbs: false },
-        // {
-        //     id: 'util-allReports',
-        //     title: 'All Reports',
-        //     type: 'item',
-        //     url: '/reports',
-        //     icon: icons['IconReportAnalytics'],
-        //     breadcrumbs: false
-        // }
+        { id: 'util-myTASK', title: 'My Tasks', type: 'item', url: '/myTasks', icon: icons['IconActivity'], breadcrumbs: false },
+        { id: 'util-allTask', title: 'All Tasks', type: 'item', url: '/tasks', icon: icons['IconNotes'], breadcrumbs: false },
+        {
+            id: 'util-allReports',
+            title: 'All Reports',
+            type: 'item',
+            url: '/reports',
+            icon: icons['IconReportAnalytics'],
+            breadcrumbs: false
+        },
         {
             id: 'Task Settings',
             title: 'Task Settings',

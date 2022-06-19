@@ -43,22 +43,22 @@ export const other = {
             icon: icons['IconFriends'],
             breadcrumbs: false
         },
-        //  {
-        //     id: 'Departements',
-        //     title: 'Departements',
-        //     type: 'item',
-        //     url: '/departement',
-        //     icon: icons['IconBuilding'],
-        //     breadcrumbs: false
-        // },
-        //    {
-        //     id: 'weeks',
-        //     title: 'dispatch plan ',
-        //     type: 'item',
-        //     url: '/weeks',
-        //     icon: icons['IconCalendarEvent'],
-        //     breadcrumbs: false
-        // },
+        {
+            id: 'Departements',
+            title: 'Departements',
+            type: 'item',
+            url: '/departement',
+            icon: icons['IconBuilding'],
+            breadcrumbs: false
+        },
+        {
+            id: 'weeks',
+            title: 'dispatch plan ',
+            type: 'item',
+            url: '/weeks',
+            icon: icons['IconCalendarEvent'],
+            breadcrumbs: false
+        },
         {
             id: 'users',
             title: 'users',

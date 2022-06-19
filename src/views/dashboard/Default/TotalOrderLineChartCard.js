@@ -126,7 +126,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                         size="small"
                                         onClick={(e) => handleChangeTime(e, true)}
                                     >
-                                        Month
+                                        Montht
                                     </Button>
                                     <Button
                                         disableElevation
